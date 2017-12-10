@@ -6,6 +6,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public GameControllerScript gcs;
 	public float speed;
+	public float turnForce;
 	private Rigidbody r;
 	private CameraManagerScript cms;
 	private bool hit = false;
@@ -23,7 +24,7 @@ public class PlayerScript : MonoBehaviour {
 		if (r.velocity.z <= speed)
 			r.velocity = new Vector3 (r.velocity.x, r.velocity.y, speed);
 		//if (!hit)
-		r.AddForce (Vector3.right * Input.GetAxis ("Horizontal"));
+		r.AddForce (Vector3.right * Input.GetAxis ("Horizontal") * turnForce);
 	}
 
 	void OnTriggerEnter (Collider other){

@@ -37,7 +37,7 @@ public class GameControllerScript : MonoBehaviour {
 	}
 
 	private IEnumerator Check(){
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (4f);
 		foreach (Transform t in pins) {
 			//Debug.Log (t.gameObject + "Before " + score);
 			if (t != null) {
@@ -72,7 +72,7 @@ public class GameControllerScript : MonoBehaviour {
 		end = true;
 		Destroy(ps.gameObject);
 		if (PlayerPrefs.GetInt ("Level" + SceneManager.GetActiveScene().buildIndex, 0) < score)
-			PlayerPrefs.SetInt ("Level1" + SceneManager.GetActiveScene().buildIndex, score);
+			PlayerPrefs.SetInt ("Level" + SceneManager.GetActiveScene().buildIndex, score);
 	}
 
 	private void NextRound (){
