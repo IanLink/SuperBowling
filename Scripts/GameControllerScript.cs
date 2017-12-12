@@ -86,6 +86,7 @@ public class GameControllerScript : MonoBehaviour {
 
 	private void Strike(){
 		endText.text = "Strike!";
+		PlayerPrefs.SetInt ("Level" + SceneManager.GetActiveScene().buildIndex + "Star", 1);
 	}
 
 	private void Spare(){

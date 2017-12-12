@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour {
 
 	public GameControllerScript gcs;
-	public float speed;
-	public float turnForce;
+	public float speedX,speedZ;
 	private Rigidbody r;
 	private CameraManagerScript cms;
 	private bool hit = false;
@@ -20,11 +19,7 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log (r.velocity);
-		if (r.velocity.z <= speed)
-			r.velocity = new Vector3 (r.velocity.x, r.velocity.y, speed);
-		//if (!hit)
-		r.AddForce (Vector3.right * Input.GetAxis ("Horizontal") * turnForce);
+		r.velocity = new Vector3 (Input.GetAxis ("Horizontal") * speedX, r.velocity.y, speedZ);
 	}
 
 	void OnTriggerEnter (Collider other){
@@ -37,7 +32,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public void ResetBall(){
 		transform.position = Vector3.down * 1.5f;
-		r.velocity = Vector3.forward * speed;
+		r.velocity = Vector3.forward * speedZ;
 		hit = false;
 		cms.ResetCamera ();
 	}
