@@ -12,12 +12,17 @@ public class GameControllerScript : MonoBehaviour {
 	public Text roundTxt;
 	public Text endText;
 	public Text instructionsText;
+	private float[] initPinY = new float[10];
 	private int score;
 	private int round;
 	private bool end;
 
 	// Use this for initialization
 	void Start () {
+		for (int i = 0; i < pins.Length; i++){
+			initPinY [i] = pins [i].position.y;
+			//Debug.Log (initPinY [i]);
+		}
 		score = 0;
 		round = 1;
 		end = false;
@@ -32,19 +37,19 @@ public class GameControllerScript : MonoBehaviour {
 		}
 	}
 
-	public void CheckPins(){
-		StartCoroutine (Check ());
+	public void CheckPins(float f){
+		StartCoroutine (Check (f));
 	}
 
-	private IEnumerator Check(){
-		yield return new WaitForSeconds (4f);
-		foreach (Transform t in pins) {
+	private IEnumerator Check(float k){
+		yield return new WaitForSeconds (k);
+		for (int i = 0; i < pins.Length; i++) {
 			//Debug.Log (t.gameObject + "Before " + score);
-			if (t != null) {
-				if (Mathf.Abs (t.rotation.eulerAngles.x) > 10f || Mathf.Abs (t.rotation.eulerAngles.z) > 10f) {
+			if (pins[i] != null) {
+				if (Mathf.Abs (pins[i].rotation.eulerAngles.x) > 10f || Mathf.Abs (pins[i].rotation.eulerAngles.z) > 10f || pins[i].position.y > initPinY[i] + 1f || pins[i].position.y < initPinY[i] - 1f) {
 					score++;
 					//Debug.Log ("After" + score);
-					Destroy (t.gameObject);
+					Destroy (pins[i].gameObject);
 				}
 			}
 		}
